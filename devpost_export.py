@@ -186,17 +186,17 @@ def save_to_format(project_info_list, output_folder, out_format):
         team_members = 'Unknown' if project_info['team-members'] is None else [ member["name"] for member in project_info["team-members"] ]
         hackathon_name = deep_get(project_info, "hackathon.name") or 'Unknown'
         with open(f'{output_folder}/{filename}.txt', 'w', encoding='utf-8') as outfile:
-            outfile.write(f'Title: {project_info.get("title", "N/A")}\n')
-            outfile.write(f'Project ID: {project_info.get("id", "N/A")}\n')
-            outfile.write(f'Project Link: {project_info.get("link", "N/A")}\n')
-            outfile.write(f'Short Description: {project_info.get("short-description", "N/A")}\n')
-            outfile.write(f'# of Likes: {project_info.get("likes", "N/A")}\n')
-            outfile.write(f'# of Comments: {project_info.get("comments", "N/A")}\n')
-            outfile.write(f'Team Members: {generate_bullet_list(team_members)}\n')
-            outfile.write(f'Hackathon submitted to: {hackathon_name}\n')
-            outfile.write(f'Awards Won: {generate_bullet_list(project_info.get("awards", "N/A"))}\n')
-            outfile.write(f'Built with: {generate_bullet_list(project_info.get("built-with", "N/A"))}\n')
-            outfile.write(f'Relevant Links: {generate_bullet_list(project_info.get("relevant-links", "N/A"))}\n')
+            outfile.write(f'Title: {project_info.get("title", "N/A")}\n\n')
+            outfile.write(f'Project ID: {project_info.get("id", "N/A")}\n\n')
+            outfile.write(f'Project Link: {project_info.get("link", "N/A")}\n\n')
+            outfile.write(f'Short Description: {project_info.get("short-description", "N/A")}\n\n')
+            outfile.write(f'# of Likes: {project_info.get("likes", "N/A")}\n\n')
+            outfile.write(f'# of Comments: {project_info.get("comments", "N/A")}\n\n')
+            outfile.write(f'Team Members: {generate_bullet_list(team_members)}\n\n')
+            outfile.write(f'Hackathon submitted to: {hackathon_name}\n\n')
+            outfile.write(f'Awards Won: {generate_bullet_list(project_info.get("awards", "N/A"))}\n\n')
+            outfile.write(f'Built with: {generate_bullet_list(project_info.get("built-with", "N/A"))}\n\n')
+            outfile.write(f'Relevant Links: {generate_bullet_list(project_info.get("relevant-links", "N/A"))}\n\n')
             outfile.write('Long description:\n\n')
             outfile.write(project_info.get('long-description', 'N/A').rstrip())
 
