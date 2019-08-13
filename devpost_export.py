@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import re
-from copy import copy
-import json
+from re import compile as compile_regex
+from json import dump as dump_json
 import os
 
 from bs4 import BeautifulSoup
@@ -53,7 +52,7 @@ def get_project_info(project_link):
         short_desc = short_desc_wrapper.text.strip()
 
     # retrieve the long description text (in markdown)
-    long_desc_wrapper = copy(project_soup.find(id='app-details-left'))
+    long_desc_wrapper = project_soup.find(id='app-details-left')
 
     # remove gallery and built with to get original long description
     gallery_tmp = long_desc_wrapper.find(id='gallery')
@@ -149,7 +148,7 @@ def get_all_project_links(username):
 
         # find all links that match the project URl format (https://devpost.com/software/example-project-id)
         profile_soup = get_soup(f'https://devpost.com/{username}?page={page_number}')
-        project_blobs = profile_soup.find_all('a', href=re.compile('^https:\/\/devpost\.com\/software\/(.+)$'))
+        project_blobs = profile_soup.find_all('a', href=compile_regex('^https:\/\/devpost\.com\/software\/(.+)$'))
 
         tmp_links = [project_blob['href'] for project_blob in project_blobs if not 'built-with' in project_blob['href']]
         project_links += tmp_links
@@ -177,7 +176,7 @@ def save_to_format(project_info_list, output_folder, out_format):
 
     def save_to_json(project_info, filename, output_folder):
         with open(f'{output_folder}/{filename}.json', 'w', encoding='utf-8') as outfile:
-            json.dump(project_info, outfile, indent=4, ensure_ascii=False)
+            dump_json(project_info, outfile, indent=4, ensure_ascii=False)
 
     def save_to_text(project_info, filename, output_folder):
         team_members = 'Unknown' if project_info['team-members'] is None else [ member["name"] for member in project_info["team-members"] ]
@@ -250,7 +249,7 @@ def cli(username, output_format, output_folder):
     project_info_list = abar.process(project_links, get_project_info, 'Scraping project infos')
 
     # no need to parallelize this part since the max measured time was 20 ms
-    # for 60+ projects in the json format (try yosun's profile)
+    # for 70+ projects in the json format (try yosun's profile)
     save_to_format(project_info_list, output_folder or f'{username}-projects', output_format)
 
 if __name__ == '__main__':
