@@ -11,9 +11,9 @@ setup(
     author = 'Tejas Shah',
     description = "A CLI tool for exporting a Devpost user's projects.",
     long_description=read('README.md'),
-    license = "MIT",
-    keywords = "devpost hackathon export",
-    url = "https://github.com/tejashah88/devpost-profile-exporter",
+    license = 'MIT',
+    keywords = 'devpost hackathon export',
+    url = 'https://github.com/tejashah88/devpost-profile-exporter',
     py_modules=['devpost-export'],
     install_requires=[
         'Click',

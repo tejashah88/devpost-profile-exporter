@@ -2,11 +2,6 @@
 
 import re
 from copy import copy
-
-import requests
-
-from async_utils import AsyncProgressBar
-
 import json
 import os
 
@@ -14,6 +9,8 @@ from bs4 import BeautifulSoup
 import click
 import requests
 from html2text import html2text
+
+from async_utils import AsyncProgressBar
 
 VALID_FORMATS = ['text', 'json']
 

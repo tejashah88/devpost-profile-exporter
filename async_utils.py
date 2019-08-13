@@ -41,9 +41,9 @@ class AsyncProgressBar:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_workers) as executor:
                     loop = asyncio.get_event_loop()
                     # generate the required tasks needed to be executed
-                    futures = [ loop.run_in_executor(executor, run_map_fn, item, bar) for item in lst ]
+                    futures = [loop.run_in_executor(executor, run_map_fn, item, bar) for item in lst]
                     # gather all the returned results and return the array
-                    project_info_list = await asyncio.gather(*futures)
-                    return project_info_list
+                    results_list = await asyncio.gather(*futures)
+                    return results_list
 
         return safe_run_async(run_progressive_task, lst)

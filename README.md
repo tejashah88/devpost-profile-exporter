@@ -2,7 +2,6 @@
 A CLI tool for exporting a Devpost user's projects, featuring parallel processing and a complete content export.
 
 ## Installation (for now)
-
 ### Linux or MacOS
 ```bash
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
@@ -13,7 +12,7 @@ pip install --editable .
 ```
 
 ### Windows (UNTESTED)
-```bash
+```bat
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
 cd devpost-profile-exporter
 virtualenv env
@@ -28,7 +27,7 @@ then scrape all relevant information for each project. Then depending on the giv
 the scraped information into the optionally given output folder.
 
 ```bash
-python devpost_export.py <username> <format> --output-folder <folder>
+python devpost_export.py <username> <format> --output-folder [folder]
 ```
 
 * `<username>` - Devpost username
