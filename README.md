@@ -6,7 +6,7 @@ A CLI tool for exporting a Devpost user's projects, featuring parallel processin
 ```bash
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
 cd devpost-profile-exporter
-virtualenv env
+python -m venv env
 source env/bin/activate
 pip install --editable .
 ```
@@ -15,8 +15,8 @@ pip install --editable .
 ```bat
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
 cd devpost-profile-exporter
-virtualenv env
-env/bin/activate.bat
+python -m venv env
+env\\Scripts\\activate.bat
 pip install --editable .
 ```
 
