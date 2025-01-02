@@ -1,37 +1,40 @@
 # devpost-profile-exporter
 A CLI tool for exporting a Devpost user's projects, featuring parallel processing and a complete content export.
 
-## Installation (for now)
+## Installation
 ### Linux or MacOS
 ```bash
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
 cd devpost-profile-exporter
 python -m venv env
 source env/bin/activate
-pip install --editable .
 ```
 
-### Windows (UNTESTED)
+### Windows
 ```bat
 git clone https://github.com/tejashah88/devpost-profile-exporter.git
 cd devpost-profile-exporter
 python -m venv env
 env\\Scripts\\activate.bat
-pip install --editable .
 ```
 
 ## Usage
 
-When running this tool, it'll retrieve the user profile, find all his/her's projects,the given format,
+When running this tool, it'll retrieve the user profile, find all their projects,the given format,
 then scrape all relevant information for each project. Then depending on the given format, it'll save
-the scraped information into the optionally given output folder.
+the scraped information into a JSON or TXT file.
 
 ```bash
-python devpost_export.py <username> <format> --output-folder [folder]
-```
+Usage: devpost_export.py [OPTIONS] USERNAME
 
-* `<username>` - Devpost username
-* `<format>` - Either 'text' or 'json'
-  * `text` - Gives a human readable report of the project (won't include links for team members and hackathons).
-  * `json` Stores **all** scraped information into a json file, properly indented at 4 spaces.
-* `<folder>` - The output folder to store the user's project info. By default, the folder is `<username>-projects/`
+  This CLI tool takes a valid Devpost username and scrapes all the user's
+  projects and the corresponding information. The projects will be outputted
+  into a folder with all the project details in the specified format.
+
+Options:
+  --format [text|json]   The format to save the project information (text or
+                         json).  [required]
+  --output [output-dir]  The output folder to store all projects. By default,
+                         it saves all projects to "{username}-projects/"
+  --help                 Show this message and exit.
+```
