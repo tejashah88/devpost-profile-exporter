@@ -174,10 +174,6 @@ def get_all_project_links(username):
 
 
 def save_to_format(project_info_list, output_folder, out_format):
-    # Generate output folder
-    os.makedirs(output_folder, exist_ok=True)
-
-
     def save_to_json(project_info, filename, output_folder):
         with open(f'{output_folder}/{filename}.json', 'w', encoding='utf-8') as fp:
             dump_json(project_info, fp, indent=4, ensure_ascii=False)
@@ -245,14 +241,22 @@ def cli(username, _format, output_dir):
     # Grab all project links from the user profile
     project_links = get_all_project_links(username)
 
+    # Parallelize this process since HTTP requests are blocking by nature
     abar = AsyncProgressBar(max_workers=16)
-    # We parallelize this process since HTTP requests are blocking by nature
-
     project_info_list = abar.process(project_links, get_project_info, 'Scraping project infos')
 
-    # No need to parallelize this part since the max measured time was 20 ms
-    # for 70+ projects in the json format (try yosun's profile)
-    save_to_format(project_info_list, output_dir or f'{username}-projects', _format)
+    final_output_dir = output_dir or f'{username}-projects'
+
+    # Generate output folder
+    os.makedirs(final_output_dir, exist_ok=True)
+
+    # Write project links to text file
+    with open(f'{final_output_dir}/_projects.txt', 'w', encoding='utf-8') as fp:
+        project_links = [project_info['link'] for project_info in project_info_list if project_info.get('link') is not None]
+        fp.write('\n'.join(project_links))
+
+    # Save project information to the output directory
+    save_to_format(project_info_list, final_output_dir, _format)
 
 
 if __name__ == '__main__':
